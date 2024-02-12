@@ -1,0 +1,48 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Similarity Calculator</title>
+</head>
+<body>
+    <h1>Similarity Calculator</h1>
+    
+    <form id="similarityForm">
+        <label for="text1">Text 1:</label>
+        <textarea id="text1" name="text1" rows="4" cols="50"></textarea><br>
+        
+        <label for="text2">Text 2:</label>
+        <textarea id="text2" name="text2" rows="4" cols="50"></textarea><br>
+
+        <button type="button" onclick="calculateSimilarity()">Calculate Similarity</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateSimilarity() {
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+
+            fetch('http://localhost:5000/calculate_similarity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text1, text2 }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = `
+                    <p>Text 1: ${data.text1}</p>
+                    <p>Text 2: ${data.text2}</p>
+                    <p>Similarity Score: ${data['similarity score']}</p>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

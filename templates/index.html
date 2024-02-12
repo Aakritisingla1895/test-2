@@ -1,0 +1,25 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siamese BERT Similarity</title>
+</head>
+<body>
+    <h1>Siamese BERT Similarity Calculator</h1>
+    <form action="/predict" method="post">
+        <label for="text1">Text 1:</label>
+        <textarea name="text1" rows="4" cols="50"></textarea>
+        <br>
+        <label for="text2">Text 2:</label>
+        <textarea name="text2" rows="4" cols="50"></textarea>
+        <br>
+        <button type="submit">Calculate Similarity</button>
+    </form>
+    {% if text1 and text2 %}
+        <p>Similarity Score: {{ similarity_score }}</p>
+    {% endif %}
+</body>
+</html>
